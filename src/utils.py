@@ -4,8 +4,9 @@ import subprocess
 
 ROOT = os.getcwd()
 DB_PATH = os.path.join(ROOT, "dataset")
-BIN_PATH = os.path.join(ROOT, "dataset")
+BIN_PATH = os.path.join(ROOT, "bin")
 
+# Todo: redirecionar o resultado para uma variavel ou então ler o ficheiro
 
 def applyGetMaxFreqs(filepath):
     if platform.system().lower() == 'windows':

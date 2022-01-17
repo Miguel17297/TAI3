@@ -9,10 +9,14 @@ class FindMusic:
         self._compressor = Compressor(comp_type)
 
     def find(self, sample):
-        pass
+        db = self.db
+        freq_sample = applyGetMaxFreqs(sample)
+        return min([(music, self.ncd(freq_sample, db[music]))
+                    for music in db], key=lambda x: x[1])[0]
 
     def ncd(self, x, y):
-        comp_xy = self._compressor.compress(''.join(x, y))
+
+        comp_xy = self._compressor.compress(''.join([x, y]))
         comp_x = self._compressor.compress(x)
         comp_y = self._compressor.compress(y)
 
@@ -24,6 +28,5 @@ class FindMusic:
 
 
 if __name__ == "__main__":
-    c = Compressor("gzip")
-
-    print(c.compress("hello world"))
+    f = FindMusic("gzip")
+    f.find("../samples/test.wav")

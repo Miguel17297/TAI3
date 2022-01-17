@@ -28,9 +28,9 @@ class Compressor:
 class Gzip(ICompressor):
 
     def compress(self, data):
-        return gzip.compress(data)
+        return len(gzip.compress(data))
 
 
 class Lzma(ICompressor):
     def compress(self, data):
-        return lzma.compress(data)
+        return len(lzma.compress(data))
