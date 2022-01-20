@@ -2,6 +2,7 @@ from utils import *
 from compressor import Compressor
 
 
+# Nota: o gzip pode não dar os melhores resultados por causa dos headers que adiciona
 class FindMusic:
 
     def __init__(self, comp_type):
@@ -16,7 +17,7 @@ class FindMusic:
 
     def ncd(self, x, y):
 
-        comp_xy = self._compressor.compress(''.join([x, y]))
+        comp_xy = self._compressor.compress(x + y)
         comp_x = self._compressor.compress(x)
         comp_y = self._compressor.compress(y)
 
@@ -29,4 +30,4 @@ class FindMusic:
 
 if __name__ == "__main__":
     f = FindMusic("gzip")
-    f.find("../samples/test.wav")
+    print(f.find("dataset/Carlos_Paião_Po_de_Arroz.freqs"))

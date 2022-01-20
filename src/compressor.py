@@ -22,7 +22,7 @@ class Compressor:
             raise Exception(f'Invalid format: {comp_type}')
 
     def compress(self, data):
-        return self._compressor.compress(data.encode('utf-8'))
+        return self._compressor.compress(data)
 
 
 class Gzip(ICompressor):
