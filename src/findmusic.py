@@ -55,7 +55,7 @@ if __name__ == "__main__":
     parser.add_argument("-s", help="Path to sample audio file to analyze", type=str, required=True)
     parser.add_argument("-c", help="Type of compressor", type=str, choices=['lzma', 'gzip', 'bzip2'], default='lzma')
     parser.add_argument("-n", help="Add noise to Sample", type=float)
-    parser.add_argument("--noise-type", help="Type of compressor", type=str, choices=['whitenoise', 'brownnoise'],
+    parser.add_argument("--noise-type", help="Type of noise", type=str, choices=['whitenoise', 'brownnoise'],
                         default='whitenoise')
     args = parser.parse_args()
 
