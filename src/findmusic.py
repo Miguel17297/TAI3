@@ -3,6 +3,8 @@ import argparse
 from utils import *
 
 
+# TODO: Testar o sox para windows
+
 # Nota: o gzip pode não dar os melhores resultados por causa dos headers que adiciona
 class FindMusic:
 
@@ -42,22 +44,35 @@ class FindMusic:
     def db(self):
         return self._db
 
+    def __del__(self):
+        clean()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Recognize a Music",
                                      usage="python3 findmusic.py --s path_to_sample -c compressor_type")
 
-    # parser.add_argument("--db", help="Path to folder with music database", type=str)
     parser.add_argument("-s", help="Path to sample audio file to analyze", type=str, required=True)
     parser.add_argument("-c", help="Type of compressor", type=str, choices=['lzma', 'gzip', 'bzip2'], default='lzma')
-
+    parser.add_argument("-n", help="Add noise to Sample", type=float)
+    parser.add_argument("--noise-type", help="Type of compressor", type=str, choices=['whitenoise', 'brownnoise'],
+                        default='whitenoise')
     args = parser.parse_args()
 
+    if args.noise_type and not args.n:  # to select noise type is necessary to select noise value first
+        parser.error('--noise_type requires -n')
+
     sample = args.s
+
+    _, extension = os.path.splitext(sample)
+
+    assert extension == ".wav", f'Invalid format: {extension}'  # sample must be in .wav format
+
+    if args.n:
+        sample = add_noise(sample, args.n, args.noise_type)  # add noise to sample
 
     assert os.path.exists(sample), f'Invalid file: {sample}'
 
     f = FindMusic(args.c)
 
     print(f"For target sample:{sample} we got {f.find(sample)}")
-

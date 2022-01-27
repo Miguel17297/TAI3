@@ -3,7 +3,6 @@ import lzma
 import gzip
 import bz2
 
-# Todo: corrigir os compressores para retornar o numero de bits
 
 class ICompressor(ABC):
 
@@ -25,6 +24,8 @@ class Compressor:
             self._compressor = Gzip()
         elif comp_type == "lzma":
             self._compressor = Lzma()
+        elif comp_type == "bzip2":
+            self._compressor = Bzip2()
         else:
             raise Exception(f'Invalid format: {comp_type}')
 
@@ -45,12 +46,15 @@ class Lzma(ICompressor):
     """
     Lzma Compressor
     """
+
     def compress(self, data):
         return len(lzma.compress(data))
+
 
 class Bzip2(ICompressor):
     """
     Bzip2 Compressor
     """
+
     def compress(self, data):
         return len(bz2.compress(data))
