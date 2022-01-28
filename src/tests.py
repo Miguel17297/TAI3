@@ -3,8 +3,8 @@ import os
 import numpy as np
 
 from src.comp_type import CompType
-from src.findmusic import FindMusic
 
+from src.findmusic import FindMusic
 import matplotlib.pyplot as plt
 
 from src.utils import add_noise
@@ -93,6 +93,7 @@ def main():
     stats_sample_size(samples_10, samples_20, samples_30, 'bzip2')
     stats_noise(samples_30, 'bzip2', 'whitenoise')
     stats_noise(samples_30, 'bzip2', 'brownnoise')
+
 
 
 if __name__ == '__main__':
