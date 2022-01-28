@@ -22,9 +22,7 @@ def get_accuracy(f, samples, noise=None, noise_type=None):
         actual_song = sample[15:-13]
         if noise is not None:
             sample = add_noise(sample, noise, noise_type)
-        print(noise)
         song_found = f.find(sample)
-        print(f'Compare "{actual_song}" to "{song_found}"')
         if actual_song in song_found:
             acc += 1
     return acc / len(samples)
@@ -36,9 +34,7 @@ def stats_compressors(samples_10):
     for compressor in compressors:
         f = FindMusic(compressor)
         acc = get_accuracy(f, samples_10)
-        print(f'Acc for samples_10 and GZIP {acc}')
         compressor_acc.append(acc * 100)
-    # print(f"For target sample:{sample} we got {f.find(sample)}")
 
     fig = plt.figure(figsize=(10, 5))
 
