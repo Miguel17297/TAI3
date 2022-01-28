@@ -3,9 +3,8 @@ import argparse
 from utils import *
 
 
-# TODO: Testar o sox para windows
+# Note: the gzip compressor cannot give the best results because of the headers that it adds
 
-# Nota: o gzip pode não dar os melhores resultados por causa dos headers que adiciona
 class FindMusic:
 
     def __init__(self, comp_type):
@@ -44,8 +43,8 @@ class FindMusic:
     def db(self):
         return self._db
 
-    def __del__(self):
-        clean()
+    # def __del__(self):
+    #     clean()
 
 
 if __name__ == "__main__":
@@ -61,6 +60,7 @@ if __name__ == "__main__":
     sample = args.s
     n = args.n
     noise_type = args.noise_type
+    noise_sample = None
 
     if args.noise_type and not args.n:  # to select noise type is necessary to select noise value first
         parser.error('--noise_type requires -n')
@@ -72,11 +72,14 @@ if __name__ == "__main__":
 
     assert extension == ".wav", f'Invalid format: {extension}'  # sample must be in .wav format
 
-    if args.n:
-        sample = add_noise(sample, args.n, args.noise_type)  # add noise to sample
-
     assert os.path.exists(sample), f'Invalid file: {sample}'
+
+    if args.n:
+        noise_sample = add_noise(sample, n, noise_type)  # add noise to sample
 
     f = FindMusic(args.c)
 
-    print(f"For target sample:{sample} we got {f.find(sample)}")
+    if noise_sample:
+        print(f"For target sample:{sample} with {n} of noise we got {f.find(noise_sample)}")
+    else:
+        print(f"For target sample:{sample} we got {f.find(sample)}")

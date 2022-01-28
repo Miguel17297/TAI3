@@ -1,8 +1,5 @@
 import os
-
-from src.comp_type import CompType
 from src.findmusic import FindMusic
-
 import matplotlib.pyplot as plt
 
 SAMPLES_PATH = ''
@@ -25,7 +22,7 @@ def get_accuracy(f, samples):
 
 def stats_compressors(samples_10):
     compressor_acc = []
-    compressors = ['gzip', 'lzma']
+    compressors = ['gzip', 'lzma', 'bzip2']
     for compressor in compressors:
         f = FindMusic(compressor)
         acc = get_accuracy(f, samples_10)
@@ -45,7 +42,7 @@ def stats_compressors(samples_10):
     plt.show()
 
 
-def stats_sample_size(samples_10, samples_20, samples_30,compressor):
+def stats_sample_size(samples_10, samples_20, samples_30, compressor):
     samples_acc = []
     for samples in [samples_10, samples_20, samples_30]:
         f = FindMusic(compressor)
@@ -68,8 +65,7 @@ def main():
     stats_compressors(samples_20)
     stats_sample_size(samples_10, samples_20, samples_30, 'lzma')
     stats_sample_size(samples_10, samples_20, samples_30, 'gzip')
-
-
+    stats_sample_size(samples_10, samples_20, samples_30, 'bzip2')
 
 
 if __name__ == '__main__':
