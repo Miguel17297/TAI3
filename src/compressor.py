@@ -1,13 +1,19 @@
-import lzma
 from abc import ABC, abstractmethod
+import lzma
 import gzip
+import bz2
 
-# Todo: corrigir os compressores para retornar o numero de bits
 
 class ICompressor(ABC):
 
     @abstractmethod
     def compress(self, data):
+        """
+        Computes the number of bytes to compress the data
+
+        :param data: object to be compressed
+        :return: number of bytes to compress the data
+        """
         pass
 
 
@@ -18,6 +24,8 @@ class Compressor:
             self._compressor = Gzip()
         elif comp_type == "lzma":
             self._compressor = Lzma()
+        elif comp_type == "bzip2":
+            self._compressor = Bzip2()
         else:
             raise Exception(f'Invalid format: {comp_type}')
 
@@ -26,11 +34,27 @@ class Compressor:
 
 
 class Gzip(ICompressor):
+    """
+     GZip Compressor
+    """
 
     def compress(self, data):
         return len(gzip.compress(data))
 
 
 class Lzma(ICompressor):
+    """
+    Lzma Compressor
+    """
+
     def compress(self, data):
         return len(lzma.compress(data))
+
+
+class Bzip2(ICompressor):
+    """
+    Bzip2 Compressor
+    """
+
+    def compress(self, data):
+        return len(bz2.compress(data))
