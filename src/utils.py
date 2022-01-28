@@ -19,11 +19,18 @@ def applyGetMaxFreqs(filepath):
     :return: music signature
     """
 
-    f_name, f_format = os.path.splitext(filepath)
+    if not os.path.exists(TEMP_PATH):  # create temp folder
+        os.makedirs(TEMP_PATH)
 
-    freq_file = f"{f_name}.freqs"
+    f_path, f_extension = os.path.splitext(filepath)
 
-    if f_format != ".freqs":  # if already a .freqs file dont need to recompute
+    f_name = ''.join([f_path.split("/")[-1], '.freqs'])  # temp .freqs file
+
+    freq_file = os.path.join(TEMP_PATH, f_name)
+
+    print(freq_file)
+
+    if f_extension != ".freqs":  # if already a .freqs file dont need to recompute
 
         if platform.system().lower() == 'windows':
             p_path = os.path.join(BIN_PATH, "windows", "GetMaxFreqs")  # program path
@@ -71,7 +78,9 @@ def add_noise(audio, noise, noise_type):
 
     audio_path, extension = os.path.splitext(audio)
 
-    audio_name = ''.join([audio_path.split("/")[-1], extension])
+    audio_name = ''.join([audio_path.split("/")[-1], '_noise', extension])
+
+    print(audio_name)
 
     temp_path = os.path.join(TEMP_PATH, audio_name)
 
@@ -100,9 +109,5 @@ def clean():
         shutil.rmtree(TEMP_PATH)
 
 
-def music_sampling(music):
-    return
-
-
 if __name__ == '__main__':
-    print(add_noise("test.wav", 0.4, "whitenoise"))
+    print(add_noise("../samples/sample.wav", 0.4, "whitenoise"))
