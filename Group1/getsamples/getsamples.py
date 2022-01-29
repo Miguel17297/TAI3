@@ -10,7 +10,7 @@ musics_path="musics/"
 
 samples_path="samples/"
 
-musics = [f for f in os.listdir(os.path.join(os.getcwd(), r'musics'))]
+musics = [f for f in os.listdir(os.path.join(os.getcwd(), r'musics')) if f[-4:]==".wav"]
 
 def obtain_samples(music,musics_path,samples_path):
     sample_size=[10,20,30]
