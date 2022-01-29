@@ -49,7 +49,7 @@ class FindMusic:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Recognize a Music",
-                                     usage="python3 findmusic.py --s path_to_sample -c compressor_type")
+                                     usage="python3 findmusic.py --s <path_to_sample> -c <compressor_type> --noise_type <type_of_noise> -n <level_of_noise>")
 
     parser.add_argument("-s", help="Path to sample audio file to analyze", type=str, required=True)
     parser.add_argument("-c", help="Type of compressor", type=str, choices=['lzma', 'gzip', 'bzip2'], default='lzma')
